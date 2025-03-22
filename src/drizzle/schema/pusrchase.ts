@@ -1,17 +1,17 @@
 import {
+  pgTable,
   integer,
   jsonb,
   uuid,
   text,
   timestamp,
-  pgTable,
-} from "drizzle-orm/pg-core";
-import { createdAt, id, updatedAt } from "../schemaHelpers";
-import { relations } from "drizzle-orm";
-import { UserTable } from "./user";
-import { ProductTable } from "./product";
+} from "drizzle-orm/pg-core"
+import { createdAt, id, updatedAt } from "../schemaHelpers"
+import { relations } from "drizzle-orm"
+import { UserTable } from "./user"
+import { ProductTable } from "./product"
 
-export const PurshaseTable = pgTable("purchases", {
+export const PurchaseTable = pgTable("purchases", {
   id,
   pricePaidInCents: integer().notNull(),
   productDetails: jsonb()
@@ -27,15 +27,15 @@ export const PurshaseTable = pgTable("purchases", {
   refundedAt: timestamp({ withTimezone: true }),
   createdAt,
   updatedAt,
-});
+})
 
-export const PurshaseRelationships = relations(PurshaseTable, ({ one }) => ({
+export const PurchaseRelationships = relations(PurchaseTable, ({ one }) => ({
   user: one(UserTable, {
-    fields: [PurshaseTable.userId],
+    fields: [PurchaseTable.userId],
     references: [UserTable.id],
   }),
   product: one(ProductTable, {
-    fields: [PurshaseTable.productId],
+    fields: [PurchaseTable.productId],
     references: [ProductTable.id],
   }),
-}));
+}))

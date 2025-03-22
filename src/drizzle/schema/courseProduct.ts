@@ -1,8 +1,8 @@
-import { pgTable, uuid, primaryKey } from "drizzle-orm/pg-core";
-import { relations } from "drizzle-orm";
-import { CourseTable } from "./course";
-import { ProductTable } from "./product";
-import { createdAt, updatedAt } from "../schemaHelpers";
+import { pgTable, primaryKey, uuid } from "drizzle-orm/pg-core"
+import { CourseTable } from "./course"
+import { ProductTable } from "./product"
+import { createdAt, updatedAt } from "../schemaHelpers"
+import { relations } from "drizzle-orm"
 
 export const CourseProductTable = pgTable(
   "course_products",
@@ -16,8 +16,8 @@ export const CourseProductTable = pgTable(
     createdAt,
     updatedAt,
   },
-  (t) => [primaryKey({ columns: [t.courseId, t.productId] })]
-);
+  t => [primaryKey({ columns: [t.courseId, t.productId] })]
+)
 
 export const CourseProductRelationships = relations(
   CourseProductTable,
@@ -31,4 +31,4 @@ export const CourseProductRelationships = relations(
       references: [ProductTable.id],
     }),
   })
-);
+)
